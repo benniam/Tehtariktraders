@@ -310,19 +310,12 @@
   /* MYSTERY MENTOR CARD */
   .mystery-photo{
     width:100%; aspect-ratio:4/5;
-    background:
-      radial-gradient(circle at 50% 38%, rgba(177,75,255,0.35), transparent 55%),
-      linear-gradient(180deg, var(--bg-2), var(--bg));
-    display:flex; align-items:center; justify-content:center;
     position:relative;
+    overflow:hidden;
   }
-  .mystery-photo .silhouette{
-    width:120px; height:120px; border-radius:50%;
-    background:var(--panel);
-    border:1px solid var(--line);
-    display:flex; align-items:center; justify-content:center;
+  .mystery-photo img{
+    width:100%; height:100%; object-fit:cover; object-position:center top; display:block;
   }
-  .mystery-photo .silhouette svg{width:56px; height:56px; opacity:0.35;}
   .mystery-photo:after{
     content:""; position:absolute; inset:0;
     background:linear-gradient(180deg, transparent 55%, var(--panel) 100%);
@@ -641,6 +634,23 @@
         </div>
       </div>
 
+      <div class="player-card">
+        <div class="mystery-photo">
+          <img src="mentor.png" alt="Masked master trader mentor, identity protected">
+          <span class="player-tag">Master Trader</span>
+        </div>
+        <div class="player-body">
+          <div class="player-name">The Mentor</div>
+          <div class="player-role">Identity Protected &middot; Advanced Tier Only</div>
+          <div class="player-stats">
+            <div class="stat-chip"><div class="k">Level</div><div class="v">Master</div></div>
+            <div class="stat-chip"><div class="k">Focus</div><div class="v">Gold &amp; FX</div></div>
+            <div class="stat-chip"><div class="k">Access</div><div class="v">By Invite</div></div>
+          </div>
+          <p class="bio">Three years inside the gold and USD markets, trading with the discipline most spend a decade chasing. She doesn't teach publicly, doesn't post her charts, and doesn't need to. Advanced applicants meet her track record directly; everyone else just hears the name.</p>
+        </div>
+      </div>
+
       <div class="player-card cyan">
         <div class="player-photo-wrap">
           <span class="player-tag">Trading Lead</span>
@@ -655,25 +665,6 @@
             <div class="stat-chip"><div class="k">Focus</div><div class="v">Strategy Design</div></div>
           </div>
           <p class="bio">Curriculum and trading systems architect, from Basic fundamentals through Advanced live breakdowns.</p>
-        </div>
-      </div>
-
-      <div class="player-card">
-        <div class="mystery-photo">
-          <div class="silhouette">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
-          </div>
-          <span class="player-tag">Master Trader</span>
-        </div>
-        <div class="player-body">
-          <div class="player-name">The Mentor</div>
-          <div class="player-role">Identity Protected &middot; Advanced Tier Only</div>
-          <div class="player-stats">
-            <div class="stat-chip"><div class="k">Level</div><div class="v">Master</div></div>
-            <div class="stat-chip"><div class="k">Focus</div><div class="v">Gold &amp; FX</div></div>
-            <div class="stat-chip"><div class="k">Access</div><div class="v">By Invite</div></div>
-          </div>
-          <p class="bio">Three years inside the gold and USD markets, trading with the discipline most spend a decade chasing. She doesn't teach publicly, doesn't post her charts, and doesn't need to. Advanced applicants meet her track record directly; everyone else just hears the name.</p>
         </div>
       </div>
     </div>
