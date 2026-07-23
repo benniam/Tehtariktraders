@@ -307,6 +307,43 @@
   .stat-chip .v{font-family:var(--font-display); font-size:14px; color:var(--text); font-weight:700; margin-top:2px;}
   .player-body p.bio{font-size:13.5px; color:var(--muted);}
 
+  /* FAQ */
+  .faq-list{max-width:820px;}
+  .faq-item{
+    border-top:1px solid var(--line);
+    padding:22px 0;
+  }
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-q{
+    font-family:var(--font-display); font-size:15px; font-weight:700; color:var(--text);
+    margin-bottom:8px;
+  }
+  .faq-a{font-size:13.5px; color:var(--muted); line-height:1.6;}
+
+  /* BROKER TRUST SECTION */
+  .broker-card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:30px 32px;
+    margin-bottom:26px;
+  }
+  .broker-card .broker-name{
+    font-family:var(--font-display); font-size:22px; font-weight:800; color:var(--gold-bright,var(--cyan));
+    margin-bottom:8px;
+  }
+  .broker-card p{font-size:14px; color:var(--muted); max-width:640px;}
+  .broker-points{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:16px;
+  }
+  @media (max-width:760px){ .broker-points{grid-template-columns:1fr;} }
+  .broker-point{
+    background:var(--bg-2); border:1px solid var(--line); border-radius:12px;
+    padding:18px 20px;
+  }
+  .broker-point .th{font-family:var(--font-display); font-size:13.5px; font-weight:700; color:var(--text); margin-bottom:6px;}
+  .broker-point .ts{font-size:12.5px; color:var(--muted);}
+
   /* MYSTERY MENTOR CARD */
   .mystery-photo{
     width:100%; aspect-ratio:4/5;
@@ -544,9 +581,11 @@
     <div class="nav-links">
       <a href="#learn">What You'll Learn</a>
       <a href="#players">The Traders</a>
+      <a href="#broker">The Broker</a>
       <a href="#sessions">Live Sessions</a>
       <a href="#tiers">Tiers</a>
       <a href="#log">The Log</a>
+      <a href="#faq">FAQ</a>
       <a href="#signup" class="btn btn-primary nav-cta">Reserve Seat</a>
     </div>
   </div>
@@ -567,13 +606,13 @@
 
     <div class="chart-card">
       <div class="chart-head">
-        <span class="pair">XAUUSD</span>
+        <span class="pair">XAUUSD <small style="color:var(--muted); font-weight:500; text-transform:none; letter-spacing:0;">— gold vs. US dollar</small></span>
         <span class="price">2,378.40</span>
       </div>
       <div class="candles" id="candles"></div>
       <div class="chart-foot">
         <span>4H CHART</span>
-        <span>What we teach you to read</span>
+        <span>What we teach you to read — from zero</span>
       </div>
     </div>
   </div>
@@ -628,7 +667,7 @@
           <div class="player-stats">
             <div class="stat-chip"><div class="k">Focus</div><div class="v">XAUUSD</div></div>
             <div class="stat-chip"><div class="k">Level</div><div class="v">Beginner+</div></div>
-            <div class="stat-chip"><div class="k">Style</div><div class="v">MAEE Framework</div></div>
+            <div class="stat-chip"><div class="k">Style</div><div class="v">Risk-first</div></div>
           </div>
           <p class="bio">18 years in live events &amp; corporate training. Operator-Athlete. Logs his own XAUUSD trades daily — including the mistakes.</p>
         </div>
@@ -636,18 +675,18 @@
 
       <div class="player-card">
         <div class="mystery-photo">
-          <img src="mentor.png" alt="Masked master trader mentor, identity protected">
-          <span class="player-tag">Master Trader</span>
+          <img src="mentor.png" alt="Senior mentor, introduced personally to Advanced students">
+          <span class="player-tag">Senior Mentor</span>
         </div>
         <div class="player-body">
           <div class="player-name">The Mentor</div>
-          <div class="player-role">Identity Protected &middot; Advanced Tier Only</div>
+          <div class="player-role">Introduced After You Enrol &middot; Advanced Tier</div>
           <div class="player-stats">
-            <div class="stat-chip"><div class="k">Level</div><div class="v">Master</div></div>
+            <div class="stat-chip"><div class="k">Experience</div><div class="v">3 Years</div></div>
             <div class="stat-chip"><div class="k">Focus</div><div class="v">Gold &amp; FX</div></div>
-            <div class="stat-chip"><div class="k">Access</div><div class="v">By Invite</div></div>
+            <div class="stat-chip"><div class="k">Access</div><div class="v">Advanced Only</div></div>
           </div>
-          <p class="bio">Three years inside the gold and USD markets, trading with the discipline most spend a decade chasing. She doesn't teach publicly, doesn't post her charts, and doesn't need to. Advanced applicants meet her track record directly; everyone else just hears the name.</p>
+          <p class="bio">Three years focused on gold and USD markets. She mentors small Advanced groups directly — you'll meet her and see her approach once you're in the room, as part of the course, not before.</p>
         </div>
       </div>
 
@@ -666,6 +705,34 @@
           </div>
           <p class="bio">Curriculum and trading systems architect, from Basic fundamentals through Advanced live breakdowns.</p>
         </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="broker">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Trust &amp; Platform</span>
+      <h2>Which broker we actually use</h2>
+      <p>Execution and platform matter as much as strategy — this is the broker network your account sits with, not a black box.</p>
+    </div>
+    <div class="broker-card">
+      <div class="broker-name">AIMS FX</div>
+      <p>Our recommended broker network — the platform you'll open your own trading account with. We work with them as an introducing partner, which means direct support access, not a call centre.</p>
+    </div>
+    <div class="broker-points">
+      <div class="broker-point">
+        <div class="th">Regulated access</div>
+        <div class="ts">Your trades run through a supervised broker environment, not an in-house black box.</div>
+      </div>
+      <div class="broker-point">
+        <div class="th">MT4 / MT5 ready</div>
+        <div class="ts">Industry-standard trading platforms — the same ones we teach step-by-step in Basic.</div>
+      </div>
+      <div class="broker-point">
+        <div class="th">Your money, your account</div>
+        <div class="ts">Any capital you deposit sits in an account under your own name, not ours.</div>
       </div>
     </div>
   </div>
@@ -801,8 +868,8 @@
       <div class="tier silver">
         <div class="medal">02</div>
         <span class="tag">Basic Training</span>
-        <div class="price">RM499<small>+ USD1k top-up</small></div>
-        <div class="desc">The foundation — everything to place your first informed trade.</div>
+        <div class="price">RM499<small>course fee</small></div>
+        <div class="desc">The foundation — everything to place your first informed trade. You'll also open your own broker account and fund it with USD1,000 — that money stays yours, in your own account, not a fee to us.</div>
         <ul>
           <li>Candles &amp; candle types</li>
           <li>Reading trend &amp; trendlines</li>
@@ -865,6 +932,38 @@
         <li>Built to become a community record, not a one-off course</li>
         <li>Follow along before you decide which tier is right for you</li>
       </ul>
+    </div>
+  </div>
+</section>
+
+<section class="alt" id="faq">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Before You Sign Up</span>
+      <h2>The questions people actually ask</h2>
+      <p>No pressure, no hard sell — just straight answers to what most beginners want to know first.</p>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">Is this legit, or some kind of scam?</div>
+        <div class="faq-a">Fair question to ask before handing over any details. The Preview Class is free with zero obligation — come, ask us anything in person, meet the team, and decide afterward whether Basic or Advanced is worth it. You open your own broker account directly with AIMS FX; we never touch or hold your money.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I actually lose money trading?</div>
+        <div class="faq-a">Yes — trading carries real risk, and no course removes that. What Basic and Advanced teach is risk management: position sizing, stop-losses, and discipline, so losses are controlled rather than accidental. Anyone telling you trading is risk-free isn't being straight with you.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What if I've never traded before?</div>
+        <div class="faq-a">That's exactly who the Preview Class and Basic Training are built for. No prior experience needed — we start from "what is a candlestick" and build up step by step.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Where does my USD1,000 top-up actually go?</div>
+        <div class="faq-a">Straight into a trading account opened in your own name with AIMS FX — it's your capital, sitting in your account, not a payment to Teh Tarik Traders. The only fee you pay us is the course fee (RM499 or RM3,999 depending on tier).</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What happens right after I submit my details?</div>
+        <div class="faq-a">Your message opens directly in WhatsApp to our team — a real person, not a bot. We'll confirm your class date and answer any questions before you commit to anything further.</div>
+      </div>
     </div>
   </div>
 </section>
