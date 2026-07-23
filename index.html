@@ -339,9 +339,12 @@
     padding:30px 32px;
     margin-bottom:26px;
   }
+  .broker-card .broker-head{
+    display:flex; align-items:center; gap:16px; margin-bottom:8px;
+  }
+  .broker-card .broker-head img{height:40px; width:auto; display:block;}
   .broker-card .broker-name{
     font-family:var(--font-display); font-size:22px; font-weight:800; color:var(--gold-bright,var(--cyan));
-    margin-bottom:8px;
   }
   .broker-card p{font-size:14px; color:var(--muted); max-width:640px;}
   .broker-points{
@@ -729,7 +732,10 @@
       <p>Execution and platform matter as much as strategy — this is the broker network your account sits with, not a black box.</p>
     </div>
     <div class="broker-card">
-      <div class="broker-name">AIMS FX</div>
+      <div class="broker-head">
+        <img src="aims_logo.png" alt="AIMS FX logo">
+        <div class="broker-name">AIMS FX</div>
+      </div>
       <p>Our recommended broker network — the platform you'll open your own trading account with. We work with them as an introducing partner, which means direct support access, not a call centre.</p>
     </div>
     <div class="broker-points">
