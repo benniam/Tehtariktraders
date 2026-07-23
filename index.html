@@ -497,9 +497,17 @@
   }
   .gallery-photo img{
     width:100%; height:100%; object-fit:cover; display:block;
+    filter:saturate(0.82) contrast(1.08) brightness(0.94);
+  }
+  .gallery-photo:before{
+    content:"";
+    position:absolute; inset:0; z-index:1;
+    background:linear-gradient(160deg, rgba(0,240,255,0.16), rgba(177,75,255,0.22));
+    mix-blend-mode:color;
+    pointer-events:none;
   }
   .gallery-photo .cap{
-    position:absolute; bottom:0; left:0; right:0;
+    position:absolute; bottom:0; left:0; right:0; z-index:2;
     padding:12px 14px;
     background:linear-gradient(0deg, rgba(0,0,0,0.75), transparent);
     font-size:11.5px; color:var(--text); font-family:var(--font-display);
