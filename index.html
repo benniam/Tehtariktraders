@@ -330,12 +330,21 @@
   }
 
   /* LIVE SESSIONS GALLERY */
+  .gallery-track-wrap{
+    overflow:hidden; width:100%; margin-bottom:22px;
+  }
   .gallery-photos{
-    display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px;
-    margin-bottom:22px;
+    display:flex; gap:16px; width:max-content;
+    animation:gallery-scroll 26s linear infinite;
+  }
+  .gallery-track-wrap:hover .gallery-photos{animation-play-state:paused;}
+  @keyframes gallery-scroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
   }
   .gallery-photo{
     position:relative;
+    flex:0 0 300px;
     border-radius:14px;
     overflow:hidden;
     border:1px solid var(--line);
@@ -350,6 +359,9 @@
     background:linear-gradient(0deg, rgba(0,0,0,0.75), transparent);
     font-size:11.5px; color:var(--text); font-family:var(--font-display);
     letter-spacing:0.02em;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .gallery-photos{animation:none;}
   }
   .video-tiles{
     display:grid; grid-template-columns:1fr 1fr; gap:16px;
@@ -661,7 +673,7 @@
             <div class="stat-chip"><div class="k">Focus</div><div class="v">Gold &amp; FX</div></div>
             <div class="stat-chip"><div class="k">Access</div><div class="v">By Invite</div></div>
           </div>
-          <p class="bio">A senior institutional-level trader who mentors our Advanced cohort under condition of anonymity. Track record verified privately with serious students.</p>
+          <p class="bio">Three years inside the gold and USD markets, trading with the discipline most spend a decade chasing. She doesn't teach publicly, doesn't post her charts, and doesn't need to. Advanced applicants meet her track record directly; everyone else just hears the name.</p>
         </div>
       </div>
     </div>
@@ -675,26 +687,48 @@
       <h2>What we actually do, beyond the landing page</h2>
       <p>Live training sessions, and time spent in the competitive trading community — including supporting our mentor network at the World Trading Tournament.</p>
     </div>
-    <div class="gallery-photos">
-      <div class="gallery-photo">
-        <img src="session1.jpg" alt="Ben Niam leading a live financial mindset training session">
-        <div class="cap">Live session — 重塑理财思维</div>
-      </div>
-      <div class="gallery-photo">
-        <img src="session2.jpg" alt="Ben Niam presenting to a room of students">
-        <div class="cap">In the room, teaching</div>
-      </div>
-      <div class="gallery-photo">
-        <img src="wtt1.jpg" alt="Live XAUUSD chart analysis on stage at World Trading Tournament">
-        <div class="cap">World Trading Tournament — live analysis</div>
-      </div>
-      <div class="gallery-photo">
-        <img src="wtt2.jpg" alt="Trading desks and monitors at the World Trading Tournament arena">
-        <div class="cap">Inside the trading arena</div>
-      </div>
-      <div class="gallery-photo">
-        <img src="wtt3.jpg" alt="Multi-monitor trading setup with live charts at the tournament">
-        <div class="cap">Watching the tape, live</div>
+    <div class="gallery-track-wrap">
+      <div class="gallery-photos">
+        <div class="gallery-photo">
+          <img src="session1.jpg" alt="Ben Niam leading a live financial mindset training session">
+          <div class="cap">Live session — 重塑理财思维</div>
+        </div>
+        <div class="gallery-photo">
+          <img src="session2.jpg" alt="Ben Niam presenting to a room of students">
+          <div class="cap">In the room, teaching</div>
+        </div>
+        <div class="gallery-photo">
+          <img src="wtt1.jpg" alt="Live XAUUSD chart analysis on stage at World Trading Tournament">
+          <div class="cap">World Trading Tournament — live analysis</div>
+        </div>
+        <div class="gallery-photo">
+          <img src="wtt2.jpg" alt="Trading desks and monitors at the World Trading Tournament arena">
+          <div class="cap">Inside the trading arena</div>
+        </div>
+        <div class="gallery-photo">
+          <img src="wtt3.jpg" alt="Multi-monitor trading setup with live charts at the tournament">
+          <div class="cap">Watching the tape, live</div>
+        </div>
+        <div class="gallery-photo">
+          <img src="session1.jpg" alt="Ben Niam leading a live financial mindset training session">
+          <div class="cap">Live session — 重塑理财思维</div>
+        </div>
+        <div class="gallery-photo">
+          <img src="session2.jpg" alt="Ben Niam presenting to a room of students">
+          <div class="cap">In the room, teaching</div>
+        </div>
+        <div class="gallery-photo">
+          <img src="wtt1.jpg" alt="Live XAUUSD chart analysis on stage at World Trading Tournament">
+          <div class="cap">World Trading Tournament — live analysis</div>
+        </div>
+        <div class="gallery-photo">
+          <img src="wtt2.jpg" alt="Trading desks and monitors at the World Trading Tournament arena">
+          <div class="cap">Inside the trading arena</div>
+        </div>
+        <div class="gallery-photo">
+          <img src="wtt3.jpg" alt="Multi-monitor trading setup with live charts at the tournament">
+          <div class="cap">Watching the tape, live</div>
+        </div>
       </div>
     </div>
     <div class="video-tiles">
