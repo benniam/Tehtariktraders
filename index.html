@@ -1285,12 +1285,25 @@
   let calYear = CAL_MIN_YEAR;
   let calMonth = CAL_MIN_MONTH;
 
+  function lastDowOfMonth(year, month, dow){
+    const lastOfMonth = new Date(year, month + 1, 0);
+    const diff = (lastOfMonth.getDay() - dow + 7) % 7;
+    return new Date(year, month, lastOfMonth.getDate() - diff);
+  }
+
   function isAdvancedDate(d){
-    const firstOfMonth = new Date(d.getFullYear(), d.getMonth(), 1);
-    const offset = (ADVANCED_DOW - firstOfMonth.getDay() + 7) % 7;
-    const advancedStart = new Date(d.getFullYear(), d.getMonth(), 1 + offset);
-    const advancedEnd = new Date(d.getFullYear(), d.getMonth(), 1 + offset + 1);
-    return d.toDateString() === advancedStart.toDateString() || d.toDateString() === advancedEnd.toDateString();
+    // Advanced runs on the LAST ADVANCED_DOW of the month, plus the following day
+    // (checked against this month AND the previous month, in case day 2 rolled over)
+    const thisStart = lastDowOfMonth(d.getFullYear(), d.getMonth(), ADVANCED_DOW);
+    const thisEnd = new Date(thisStart);
+    thisEnd.setDate(thisEnd.getDate() + 1);
+
+    const prevMonthDate = new Date(d.getFullYear(), d.getMonth() - 1, 1);
+    const prevStart = lastDowOfMonth(prevMonthDate.getFullYear(), prevMonthDate.getMonth(), ADVANCED_DOW);
+    const prevEnd = new Date(prevStart);
+    prevEnd.setDate(prevEnd.getDate() + 1);
+
+    return [thisStart, thisEnd, prevEnd].some(x => x.toDateString() === d.toDateString());
   }
 
   function getWeekStart(d){
