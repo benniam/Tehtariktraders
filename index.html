@@ -1285,24 +1285,56 @@
   let calYear = CAL_MIN_YEAR;
   let calMonth = CAL_MIN_MONTH;
 
+  function isAdvancedDate(d){
+    const firstOfMonth = new Date(d.getFullYear(), d.getMonth(), 1);
+    const offset = (ADVANCED_DOW - firstOfMonth.getDay() + 7) % 7;
+    const advancedStart = new Date(d.getFullYear(), d.getMonth(), 1 + offset);
+    const advancedEnd = new Date(d.getFullYear(), d.getMonth(), 1 + offset + 1);
+    return d.toDateString() === advancedStart.toDateString() || d.toDateString() === advancedEnd.toDateString();
+  }
+
+  function getWeekStart(d){
+    const start = new Date(d);
+    start.setDate(start.getDate() - start.getDay());
+    start.setHours(0,0,0,0);
+    return start;
+  }
+
+  function weekContainsAdvanced(d){
+    const weekStart = getWeekStart(d);
+    for(let i=0; i<7; i++){
+      const day = new Date(weekStart);
+      day.setDate(day.getDate() + i);
+      if(isAdvancedDate(day)) return true;
+    }
+    return false;
+  }
+
+  // Precompute Basic dates once — if a slot would land in the same week as Advanced,
+  // it shifts forward 1 week, and every future Basic date cascades from that new anchor.
+  function buildBasicDates(count){
+    const dates = new Set();
+    let cursor = new Date(BASIC_ANCHOR);
+    for(let i=0; i<count; i++){
+      while(weekContainsAdvanced(cursor)){
+        cursor.setDate(cursor.getDate() + 7);
+      }
+      dates.add(cursor.toDateString());
+      cursor = new Date(cursor);
+      cursor.setDate(cursor.getDate() + 14);
+    }
+    return dates;
+  }
+  const BASIC_DATES = buildBasicDates(120); // ~4.5 years of cascading coverage
+
   function getTagsForDate(d){
     const tags = [];
 
     if(d.getDay() === PREVIEW_DOW) tags.push('preview');
 
-    if(d.getDay() === BASIC_DOW){
-      const weeksSinceAnchor = Math.round((d - BASIC_ANCHOR) / (7*24*3600*1000));
-      if(weeksSinceAnchor % 2 === 0) tags.push('basic');
-    }
+    if(BASIC_DATES.has(d.toDateString())) tags.push('basic');
 
-    // Advanced runs 2 consecutive days, starting the first ADVANCED_DOW of the month
-    const firstOfMonth = new Date(d.getFullYear(), d.getMonth(), 1);
-    const offset = (ADVANCED_DOW - firstOfMonth.getDay() + 7) % 7;
-    const advancedStart = new Date(d.getFullYear(), d.getMonth(), 1 + offset);
-    const advancedEnd = new Date(d.getFullYear(), d.getMonth(), 1 + offset + 1);
-    if(d.toDateString() === advancedStart.toDateString() || d.toDateString() === advancedEnd.toDateString()){
-      tags.push('advanced');
-    }
+    if(isAdvancedDate(d)) tags.push('advanced');
 
     return tags;
   }
