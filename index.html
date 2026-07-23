@@ -728,7 +728,7 @@
       </div>
       <div class="candles" id="candles"></div>
       <div class="chart-foot">
-        <span>4H CHART</span>
+        <span>1M CHART</span>
         <span>What we teach you to read — from zero</span>
       </div>
     </div>
@@ -1226,22 +1226,29 @@
       const delta = lastRealPrice === null ? 0 : Math.abs(newPrice - lastRealPrice);
       const h = Math.min(180, 40 + Math.round(delta * 8));
       lastRealPrice = newPrice;
+      price = newPrice;
 
       pushCandle(type, h);
       applyPrice(newPrice, type);
     } catch(err){
-      // Fallback: free endpoint unreachable (network/CORS/rate-limit) — simulate a tick so the chart still feels alive
-      const type = Math.random() > 0.45 ? 'up' : 'down';
-      const h = 40 + Math.round(Math.random() * 140);
-      const delta = (type === 'up' ? 1 : -1) * (Math.random() * 3.2);
-      const simPrice = Math.max(2300, price + delta);
-      pushCandle(type, h);
-      applyPrice(simPrice, type);
+      // Fallback: free endpoint unreachable — simulate a tick so the chart still feels alive
+      microTick();
     }
   }
 
+  // Fast simulated tick — gives the "moving by the minute" feel between real price refreshes
+  function microTick(){
+    const type = Math.random() > 0.48 ? 'up' : 'down';
+    const h = 40 + Math.round(Math.random() * 140);
+    const delta = (type === 'up' ? 1 : -1) * (Math.random() * 1.4);
+    const simPrice = Math.max(2300, price + delta);
+    pushCandle(type, h);
+    applyPrice(simPrice, type);
+  }
+
   fetchGoldPrice();
-  setInterval(fetchGoldPrice, 20000);
+  setInterval(microTick, 3000);       // fast visual movement, every ~3s (feels like 1-minute candles)
+  setInterval(fetchGoldPrice, 20000); // recalibrates to the real gold price every 20s
 
   // Log days indicator
   const logdays = document.getElementById('logdays');
