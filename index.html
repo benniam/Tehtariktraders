@@ -311,14 +311,25 @@
   .faq-list{max-width:820px;}
   .faq-item{
     border-top:1px solid var(--line);
-    padding:22px 0;
   }
   .faq-item:last-child{border-bottom:1px solid var(--line);}
   .faq-q{
+    width:100%; text-align:left; background:none; border:none; cursor:pointer;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:22px 0;
     font-family:var(--font-display); font-size:15px; font-weight:700; color:var(--text);
-    margin-bottom:8px;
   }
-  .faq-a{font-size:13.5px; color:var(--muted); line-height:1.6;}
+  .faq-q .chev{
+    flex:0 0 auto; width:18px; height:18px; color:var(--cyan);
+    transition:transform .25s ease;
+  }
+  .faq-item.open .faq-q .chev{transform:rotate(45deg);}
+  .faq-a-wrap{
+    max-height:0; overflow:hidden;
+    transition:max-height .3s ease;
+  }
+  .faq-item.open .faq-a-wrap{max-height:240px;}
+  .faq-a{font-size:13.5px; color:var(--muted); line-height:1.6; padding-bottom:22px;}
 
   /* BROKER TRUST SECTION */
   .broker-card{
@@ -607,7 +618,7 @@
     <div class="chart-card">
       <div class="chart-head">
         <span class="pair">XAUUSD <small style="color:var(--muted); font-weight:500; text-transform:none; letter-spacing:0;">— gold vs. US dollar</small></span>
-        <span class="price">2,378.40</span>
+        <span class="price" id="livePrice">2,378.40</span>
       </div>
       <div class="candles" id="candles"></div>
       <div class="chart-foot">
@@ -945,24 +956,24 @@
     </div>
     <div class="faq-list">
       <div class="faq-item">
-        <div class="faq-q">Is this legit, or some kind of scam?</div>
-        <div class="faq-a">Fair question to ask before handing over any details. The Preview Class is free with zero obligation — come, ask us anything in person, meet the team, and decide afterward whether Basic or Advanced is worth it. You open your own broker account directly with AIMS FX; we never touch or hold your money.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Is this legit, or some kind of scam?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a-wrap"><div class="faq-a">Fair question to ask before handing over any details. The Preview Class is free with zero obligation — come, ask us anything in person, meet the team, and decide afterward whether Basic or Advanced is worth it. You open your own broker account directly with AIMS FX; we never touch or hold your money.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Can I actually lose money trading?</div>
-        <div class="faq-a">Yes — trading carries real risk, and no course removes that. What Basic and Advanced teach is risk management: position sizing, stop-losses, and discipline, so losses are controlled rather than accidental. Anyone telling you trading is risk-free isn't being straight with you.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Can I actually lose money trading?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a-wrap"><div class="faq-a">Yes — trading carries real risk, and no course removes that. What Basic and Advanced teach is risk management: position sizing, stop-losses, and discipline, so losses are controlled rather than accidental. Anyone telling you trading is risk-free isn't being straight with you.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">What if I've never traded before?</div>
-        <div class="faq-a">That's exactly who the Preview Class and Basic Training are built for. No prior experience needed — we start from "what is a candlestick" and build up step by step.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">What if I've never traded before?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a-wrap"><div class="faq-a">That's exactly who the Preview Class and Basic Training are built for. No prior experience needed — we start from "what is a candlestick" and build up step by step.</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Where does my USD1,000 top-up actually go?</div>
-        <div class="faq-a">Straight into a trading account opened in your own name with AIMS FX — it's your capital, sitting in your account, not a payment to Teh Tarik Traders. The only fee you pay us is the course fee (RM499 or RM3,999 depending on tier).</div>
+        <button class="faq-q" onclick="toggleFaq(this)">Where does my USD1,000 top-up actually go?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a-wrap"><div class="faq-a">Straight into a trading account opened in your own name with AIMS FX — it's your capital, sitting in your account, not a payment to Teh Tarik Traders. The only fee you pay us is the course fee (RM499 or RM3,999 depending on tier).</div></div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">What happens right after I submit my details?</div>
-        <div class="faq-a">Your message opens directly in WhatsApp to our team — a real person, not a bot. We'll confirm your class date and answer any questions before you commit to anything further.</div>
+        <button class="faq-q" onclick="toggleFaq(this)">What happens right after I submit my details?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
+        <div class="faq-a-wrap"><div class="faq-a">Your message opens directly in WhatsApp to our team — a real person, not a bot. We'll confirm your class date and answer any questions before you commit to anything further.</div></div>
       </div>
     </div>
   </div>
@@ -1023,22 +1034,54 @@
 </footer>
 
 <script>
-  // Candlestick generator
-  const candleData = [
+  // Candlestick generator — live-updating
+  let candleData = [
     {h:60,type:'up'},{h:85,type:'down'},{h:45,type:'up'},{h:110,type:'up'},
     {h:70,type:'down'},{h:95,type:'up'},{h:130,type:'up'},{h:80,type:'down'},
     {h:150,type:'up'},{h:100,type:'down'},{h:170,type:'up'},{h:120,type:'up'}
   ];
   const container = document.getElementById('candles');
-  candleData.forEach((c, i) => {
+  const priceEl = document.getElementById('livePrice');
+  let price = 2378.40;
+
+  function renderCandle(c, animate){
     const el = document.createElement('div');
     el.className = 'candle ' + c.type;
-    el.style.animationDelay = (i * 0.06) + 's';
+    if(animate){ el.style.animationDuration = '0.5s'; }
     const wickH = Math.round(c.h * 0.35);
     const bodyH = Math.round(c.h * 0.65);
     el.innerHTML = `<div class="wick" style="height:${wickH}px"></div><div class="body-bar" style="height:${bodyH}px"></div>`;
+    return el;
+  }
+
+  candleData.forEach((c, i) => {
+    const el = renderCandle(c, false);
+    el.style.animationDelay = (i * 0.06) + 's';
     container.appendChild(el);
   });
+
+  function tickChart(){
+    const type = Math.random() > 0.45 ? 'up' : 'down';
+    const h = 40 + Math.round(Math.random() * 140);
+    const newCandle = {h, type};
+
+    candleData.push(newCandle);
+    candleData.shift();
+
+    const first = container.firstElementChild;
+    if(first) first.remove();
+    const el = renderCandle(newCandle, true);
+    container.appendChild(el);
+
+    const delta = (type === 'up' ? 1 : -1) * (Math.random() * 3.2);
+    price = Math.max(2300, price + delta);
+    if(priceEl){
+      priceEl.textContent = price.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+      priceEl.style.color = type === 'up' ? 'var(--cyan)' : 'var(--purple)';
+    }
+  }
+
+  setInterval(tickChart, 2200);
 
   // Log days indicator
   const logdays = document.getElementById('logdays');
@@ -1046,6 +1089,14 @@
     const d = document.createElement('div');
     d.className = 'log-day' + (i < 22 ? ' active' : '');
     logdays.appendChild(d);
+  }
+
+  // ===== FAQ accordion =====
+  function toggleFaq(btn){
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if(!isOpen){ item.classList.add('open'); }
   }
 
   // ===== WhatsApp signup =====
