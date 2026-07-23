@@ -728,7 +728,7 @@
       </div>
       <div class="candles" id="candles"></div>
       <div class="chart-foot">
-        <span>1M CHART</span>
+        <span>LIVE CHART</span>
         <span>What we teach you to read — from zero</span>
       </div>
     </div>
@@ -977,8 +977,7 @@
         <div class="desc">For complete beginners &amp; teams exploring trading for the first time.</div>
         <ul>
           <li>Labour income vs. capital income</li>
-          <li>What trading actually is</li>
-          <li>Broker &amp; platform we use</li>
+          <li>Why we should learn trading</li>
           <li>Realistic return expectations</li>
           <li>Meet the team</li>
         </ul>
@@ -988,15 +987,15 @@
       <div class="tier silver">
         <div class="medal">02</div>
         <span class="tag">Basic Training</span>
-        <div class="price">RM499<small>course fee</small></div>
+        <div class="price">RM499<small>1 day &middot; 9am&ndash;6pm</small></div>
         <div class="desc">The foundation — everything to place your first informed trade. You'll also open your own broker account and fund it with USD1,000 — that money stays yours, in your own account, not a fee to us.</div>
         <ul>
           <li>Candles &amp; candle types</li>
-          <li>Reading trend &amp; trendlines</li>
+          <li>Identifying trend direction</li>
           <li>Timeframes explained</li>
           <li>Risk management fundamentals</li>
-          <li>MT4/MT5 &amp; lot sizing</li>
-          <li>Community group + daily tips</li>
+          <li>How to determine entry points</li>
+          <li>Community group</li>
         </ul>
         <a href="#signup" class="btn btn-ghost">Start Basic</a>
       </div>
@@ -1005,15 +1004,16 @@
         <span class="pill">Most Requested</span>
         <div class="medal">03</div>
         <span class="tag">Advanced Training</span>
-        <div class="price">RM3999</div>
+        <div class="price">RM3999<small>2 days &middot; 9am&ndash;6pm</small></div>
         <div class="desc">Strategy, psychology, and live mentorship for accounts ready to scale.</div>
         <ul>
-          <li>Full strategy framework</li>
+          <li>Trend trading strategy</li>
+          <li>Time-zone trading</li>
           <li>Deeper risk &amp; money management</li>
           <li>Trading psychology &amp; discipline</li>
           <li>News &amp; fundamentals</li>
           <li>1-on-1 / small-group mentorship</li>
-          <li>Live trade breakdowns</li>
+          <li>Live trade case study breakdowns</li>
         </ul>
         <a href="#signup" class="btn btn-primary">Apply for Advanced</a>
       </div>
@@ -1247,7 +1247,7 @@
   }
 
   fetchGoldPrice();
-  setInterval(microTick, 3000);       // fast visual movement, every ~3s (feels like 1-minute candles)
+  setInterval(microTick, 1000);       // fast visual movement, every ~1s
   setInterval(fetchGoldPrice, 20000); // recalibrates to the real gold price every 20s
 
   // Log days indicator
