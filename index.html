@@ -129,12 +129,52 @@
   .nav-cta{display:none;}
   @media (min-width:900px){ .nav-cta{display:inline-flex;} }
 
+  /* MOBILE NAV */
+  .nav-toggle{
+    display:none;
+    width:40px; height:40px; border-radius:8px;
+    background:transparent; border:1px solid var(--line);
+    align-items:center; justify-content:center; cursor:pointer;
+  }
+  .nav-toggle span, .nav-toggle span:before, .nav-toggle span:after{
+    display:block; width:18px; height:2px; background:var(--text);
+    position:relative; transition:transform .2s ease, opacity .2s ease;
+  }
+  .nav-toggle span:before, .nav-toggle span:after{
+    content:""; position:absolute; left:0;
+  }
+  .nav-toggle span:before{ top:-6px; }
+  .nav-toggle span:after{ top:6px; }
+  .nav-toggle.open span{ background:transparent; }
+  .nav-toggle.open span:before{ top:0; transform:rotate(45deg); }
+  .nav-toggle.open span:after{ top:0; transform:rotate(-45deg); }
+
+  @media (max-width:900px){
+    .nav-toggle{display:flex;}
+    .nav-links{
+      position:fixed; top:78px; left:0; right:0;
+      flex-direction:column; align-items:stretch; gap:0;
+      background:var(--bg); border-bottom:1px solid var(--line);
+      max-height:0; overflow:hidden;
+      transition:max-height .3s ease;
+    }
+    .nav-links.open{max-height:520px;}
+    .nav-links a:not(.btn){
+      padding:16px 24px; border-top:1px solid var(--line);
+    }
+    .nav-links a:not(.btn):after{display:none;}
+    .nav-cta{
+      display:inline-flex; margin:16px 24px 20px;
+    }
+  }
+
   /* HERO */
   .hero{
     position:relative;
     padding:120px 0 100px;
     border-bottom:1px solid var(--line);
   }
+  @media (max-width:640px){ .hero{padding:48px 0 56px;} }
   .hero:before{
     content:"";
     position:absolute; inset:0;
@@ -214,7 +254,9 @@
 
   /* SECTION SHARED */
   section{padding:96px 0;}
+  @media (max-width:640px){ section{padding:56px 0;} }
   .section-head{max-width:640px; margin-bottom:56px;}
+  @media (max-width:640px){ .section-head{margin-bottom:32px;} }
   .section-head h2{
     font-size:clamp(26px,3.2vw,36px); margin:14px 0 14px; color:var(--text);
     text-transform:uppercase; font-weight:800;
@@ -357,6 +399,59 @@
   }
   .broker-point .th{font-family:var(--font-display); font-size:13.5px; font-weight:700; color:var(--text); margin-bottom:6px;}
   .broker-point .ts{font-size:12.5px; color:var(--muted);}
+
+  /* CLASS SCHEDULE — MONTH CALENDAR */
+  .schedule-legend{
+    display:flex; gap:20px; flex-wrap:wrap; margin-bottom:28px;
+  }
+  .legend-item{display:flex; align-items:center; gap:8px; font-size:13px; color:var(--muted);}
+  .legend-dot{width:10px; height:10px; border-radius:50%;}
+  .legend-dot.preview{background:var(--bronze);}
+  .legend-dot.basic{background:var(--silver);}
+  .legend-dot.advanced{background:var(--gold);}
+
+  .cal-card{
+    background:var(--panel); border:1px solid var(--line); border-radius:16px;
+    padding:26px 28px 30px;
+  }
+  .cal-head{
+    display:flex; align-items:center; justify-content:space-between;
+    margin-bottom:20px;
+  }
+  .cal-title{font-family:var(--font-display); font-size:18px; font-weight:800; color:var(--text);}
+  .cal-nav{display:flex; gap:8px;}
+  .cal-nav button{
+    width:34px; height:34px; border-radius:8px;
+    background:var(--bg-2); border:1px solid var(--line); color:var(--text);
+    cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center;
+  }
+  .cal-nav button:disabled{opacity:0.3; cursor:not-allowed;}
+  .cal-nav button:not(:disabled):hover{border-color:var(--cyan); color:var(--cyan);}
+
+  .cal-grid{display:grid; grid-template-columns:repeat(7, 1fr); gap:6px;}
+  .cal-dow{
+    font-size:10.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase;
+    color:var(--muted); text-align:center; padding-bottom:8px;
+  }
+  .cal-cell{
+    aspect-ratio:1/1; border-radius:10px;
+    background:var(--bg-2); border:1px solid var(--line);
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    gap:4px; position:relative;
+  }
+  .cal-cell.empty{background:transparent; border:none;}
+  .cal-cell .num{font-family:var(--font-display); font-size:13px; font-weight:700; color:var(--text);}
+  .cal-cell .dots{display:flex; gap:3px;}
+  .cal-cell .dots span{width:5px; height:5px; border-radius:50%;}
+  .cal-cell .dots .preview{background:var(--bronze);}
+  .cal-cell .dots .basic{background:var(--silver);}
+  .cal-cell .dots .advanced{background:var(--gold);}
+  @media (max-width:560px){
+    .cal-cell .num{font-size:11px;}
+    .cal-card{padding:20px 16px 22px;}
+    .cal-grid{gap:4px;}
+  }
+  .schedule-note{font-size:12px; color:var(--muted); margin-top:16px;}
 
   /* MYSTERY MENTOR CARD */
   .mystery-photo{
@@ -592,16 +687,18 @@
 <nav>
   <div class="wrap">
     <div class="brand">TEH TARIK <span>TRADERS</span></div>
-    <div class="nav-links">
-      <a href="#learn">What You'll Learn</a>
-      <a href="#players">The Traders</a>
-      <a href="#broker">The Broker</a>
-      <a href="#sessions">Live Sessions</a>
-      <a href="#tiers">Tiers</a>
-      <a href="#log">The Log</a>
-      <a href="#faq">FAQ</a>
-      <a href="#signup" class="btn btn-primary nav-cta">Reserve Seat</a>
+    <div class="nav-links" id="navLinks">
+      <a href="#learn" onclick="closeNav()">What You'll Learn</a>
+      <a href="#players" onclick="closeNav()">The Traders</a>
+      <a href="#broker" onclick="closeNav()">The Broker</a>
+      <a href="#sessions" onclick="closeNav()">Live Sessions</a>
+      <a href="#tiers" onclick="closeNav()">Tiers</a>
+      <a href="#log" onclick="closeNav()">The Log</a>
+      <a href="#schedule" onclick="closeNav()">Schedule</a>
+      <a href="#faq" onclick="closeNav()">FAQ</a>
+      <a href="#signup" class="btn btn-primary nav-cta" onclick="closeNav()">Reserve Seat</a>
     </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" onclick="toggleNav()"><span></span></button>
   </div>
 </nav>
 
@@ -985,6 +1082,32 @@
   </div>
 </section>
 
+<section class="alt" id="schedule">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow">Upcoming Classes</span>
+      <h2>Here's when you can actually join</h2>
+      <p>Preview runs weekly, Basic every two weeks, Advanced once a month — pick the one that fits your calendar.</p>
+    </div>
+    <div class="schedule-legend">
+      <div class="legend-item"><span class="legend-dot preview"></span> Preview — every week</div>
+      <div class="legend-item"><span class="legend-dot basic"></span> Basic — every 2 weeks</div>
+      <div class="legend-item"><span class="legend-dot advanced"></span> Advanced — monthly</div>
+    </div>
+    <div class="cal-card">
+      <div class="cal-head">
+        <div class="cal-title" id="calTitle"></div>
+        <div class="cal-nav">
+          <button id="calPrev" aria-label="Previous month">&larr;</button>
+          <button id="calNext" aria-label="Next month">&rarr;</button>
+        </div>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+    </div>
+    <p class="schedule-note">Exact times confirmed via WhatsApp once you reserve a seat.</p>
+  </div>
+</section>
+
 <section id="signup">
   <div class="wrap">
     <div class="signup-card">
@@ -1040,7 +1163,7 @@
 </footer>
 
 <script>
-  // Candlestick generator — live-updating
+  // Candlestick generator — live gold (XAUUSD) price
   let candleData = [
     {h:60,type:'up'},{h:85,type:'down'},{h:45,type:'up'},{h:110,type:'up'},
     {h:70,type:'down'},{h:95,type:'up'},{h:130,type:'up'},{h:80,type:'down'},
@@ -1049,6 +1172,7 @@
   const container = document.getElementById('candles');
   const priceEl = document.getElementById('livePrice');
   let price = 2378.40;
+  let lastRealPrice = null;
 
   function renderCandle(c, animate){
     const el = document.createElement('div');
@@ -1066,28 +1190,52 @@
     container.appendChild(el);
   });
 
-  function tickChart(){
-    const type = Math.random() > 0.45 ? 'up' : 'down';
-    const h = 40 + Math.round(Math.random() * 140);
-    const newCandle = {h, type};
-
-    candleData.push(newCandle);
+  function pushCandle(type, h){
+    candleData.push({h, type});
     candleData.shift();
-
     const first = container.firstElementChild;
     if(first) first.remove();
-    const el = renderCandle(newCandle, true);
+    const el = renderCandle({h, type}, true);
     container.appendChild(el);
+  }
 
-    const delta = (type === 'up' ? 1 : -1) * (Math.random() * 3.2);
-    price = Math.max(2300, price + delta);
+  function applyPrice(newPrice, type){
+    price = newPrice;
     if(priceEl){
       priceEl.textContent = price.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
       priceEl.style.color = type === 'up' ? 'var(--cyan)' : 'var(--purple)';
     }
   }
 
-  setInterval(tickChart, 2200);
+  // Real XAUUSD spot price — free public endpoint, no API key
+  async function fetchGoldPrice(){
+    try{
+      const res = await fetch('https://api.gold-api.com/price/XAU');
+      if(!res.ok) throw new Error('bad response');
+      const data = await res.json();
+      const newPrice = data.price;
+      if(typeof newPrice !== 'number') throw new Error('bad payload');
+
+      const type = (lastRealPrice === null || newPrice >= lastRealPrice) ? 'up' : 'down';
+      const delta = lastRealPrice === null ? 0 : Math.abs(newPrice - lastRealPrice);
+      const h = Math.min(180, 40 + Math.round(delta * 8));
+      lastRealPrice = newPrice;
+
+      pushCandle(type, h);
+      applyPrice(newPrice, type);
+    } catch(err){
+      // Fallback: free endpoint unreachable (network/CORS/rate-limit) — simulate a tick so the chart still feels alive
+      const type = Math.random() > 0.45 ? 'up' : 'down';
+      const h = 40 + Math.round(Math.random() * 140);
+      const delta = (type === 'up' ? 1 : -1) * (Math.random() * 3.2);
+      const simPrice = Math.max(2300, price + delta);
+      pushCandle(type, h);
+      applyPrice(simPrice, type);
+    }
+  }
+
+  fetchGoldPrice();
+  setInterval(fetchGoldPrice, 20000);
 
   // Log days indicator
   const logdays = document.getElementById('logdays');
@@ -1096,6 +1244,93 @@
     d.className = 'log-day' + (i < 22 ? ' active' : '');
     logdays.appendChild(d);
   }
+
+  // ===== Mobile nav toggle =====
+  function toggleNav(){
+    document.getElementById('navLinks').classList.toggle('open');
+    document.getElementById('navToggle').classList.toggle('open');
+  }
+  function closeNav(){
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('navToggle').classList.remove('open');
+  }
+
+  // ===== Class schedule — month calendar =====
+  // EDIT HERE: change the day of week classes run on (0=Sun, 1=Mon, ... 6=Sat)
+  const CLASS_DAY_OF_WEEK = 6; // Saturday
+  // EDIT HERE: a known Basic-tier date (any past or future Saturday) to lock the biweekly cadence
+  const BASIC_ANCHOR = new Date('2026-08-01'); // a Saturday
+  // Advanced runs on the first CLASS_DAY_OF_WEEK of each month
+  // EDIT HERE: calendar never shows a month before this one
+  const CAL_MIN_YEAR = 2026;
+  const CAL_MIN_MONTH = 7; // 0-indexed: 7 = August
+
+  let calYear = CAL_MIN_YEAR;
+  let calMonth = CAL_MIN_MONTH;
+
+  function getTagsForDate(d){
+    if(d.getDay() !== CLASS_DAY_OF_WEEK) return [];
+    const tags = ['preview'];
+    const weeksSinceAnchor = Math.round((d - BASIC_ANCHOR) / (7*24*3600*1000));
+    if(weeksSinceAnchor % 2 === 0) tags.push('basic');
+    if(d.getDate() <= 7) tags.push('advanced');
+    return tags;
+  }
+
+  function renderCalendar(){
+    const grid = document.getElementById('calGrid');
+    const title = document.getElementById('calTitle');
+    if(!grid || !title) return;
+    grid.innerHTML = '';
+
+    const monNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    title.textContent = `${monNames[calMonth]} ${calYear}`;
+
+    ['S','M','T','W','T','F','S'].forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'cal-dow';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+
+    const firstDay = new Date(calYear, calMonth, 1);
+    const startOffset = firstDay.getDay();
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+
+    for(let i=0; i<startOffset; i++){
+      const el = document.createElement('div');
+      el.className = 'cal-cell empty';
+      grid.appendChild(el);
+    }
+
+    for(let day=1; day<=daysInMonth; day++){
+      const d = new Date(calYear, calMonth, day);
+      const tags = getTagsForDate(d);
+      const cell = document.createElement('div');
+      cell.className = 'cal-cell';
+      const dotsHtml = tags.map(t => `<span class="${t}"></span>`).join('');
+      cell.innerHTML = `<div class="num">${day}</div><div class="dots">${dotsHtml}</div>`;
+      grid.appendChild(cell);
+    }
+
+    const prevBtn = document.getElementById('calPrev');
+    const isAtMin = (calYear === CAL_MIN_YEAR && calMonth === CAL_MIN_MONTH);
+    prevBtn.disabled = isAtMin;
+  }
+
+  document.getElementById('calPrev').addEventListener('click', () => {
+    if(calYear === CAL_MIN_YEAR && calMonth === CAL_MIN_MONTH) return;
+    calMonth--;
+    if(calMonth < 0){ calMonth = 11; calYear--; }
+    renderCalendar();
+  });
+  document.getElementById('calNext').addEventListener('click', () => {
+    calMonth++;
+    if(calMonth > 11){ calMonth = 0; calYear++; }
+    renderCalendar();
+  });
+
+  renderCalendar();
 
   // ===== FAQ accordion =====
   function toggleFaq(btn){
