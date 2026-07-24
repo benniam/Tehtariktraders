@@ -704,7 +704,7 @@
     <div class="nav-links" id="navLinks">
       <a href="#learn" onclick="closeNav()">What You'll Learn</a>
       <a href="#players" onclick="closeNav()">The Traders</a>
-      <a href="#broker" onclick="closeNav()">The Broker</a>
+      <a href="#broker" onclick="closeNav()">Your Account</a>
       <a href="#sessions" onclick="closeNav()">Live Sessions</a>
       <a href="#tiers" onclick="closeNav()">Tiers</a>
       <a href="#log" onclick="closeNav()">The Log</a>
@@ -839,20 +839,13 @@
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow">Trust &amp; Platform</span>
-      <h2>Which broker we actually use</h2>
-      <p>Execution and platform matter as much as strategy — this is the broker network your account sits with, not a black box.</p>
-    </div>
-    <div class="broker-card">
-      <div class="broker-head">
-        <img src="aims_logo.png" alt="AIMS FX logo">
-        <div class="broker-name">AIMS FX</div>
-      </div>
-      <p>Our recommended broker network — the platform you'll open your own trading account with. We work with them as an introducing partner, which means direct support access, not a call centre.</p>
+      <h2>How your trading account works</h2>
+      <p>Execution and platform matter as much as strategy — here's what to expect when you're ready to trade with real capital.</p>
     </div>
     <div class="broker-points">
       <div class="broker-point">
-        <div class="th">Regulated access</div>
-        <div class="ts">Your trades run through a supervised broker environment, not an in-house black box.</div>
+        <div class="th">Your choice of broker</div>
+        <div class="ts">You open and control your own trading account, in your own name — we teach the skills, you choose where you trade.</div>
       </div>
       <div class="broker-point">
         <div class="th">MT4 / MT5 ready</div>
@@ -1046,8 +1039,15 @@
 
 <section id="log">
   <div class="wrap log-grid">
-    <div class="video-frame">
-      <div class="play-btn"></div>
+    <div class="video-frame" id="logVideoFrame">
+      <iframe
+        id="logVideoIframe"
+        src="https://www.youtube.com/embed/XUwt3AU-w4E?enablejsapi=1&mute=1&playsinline=1&controls=1&rel=0"
+        title="30 Days In — Ben &amp; Patrick's Trading Log"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        style="width:100%; height:100%; border:0; position:absolute; inset:0;">
+      </iframe>
       <div class="video-caption">30 DAYS IN — BEN &amp; PATRICK'S TRADING LOG</div>
     </div>
     <div>
@@ -1074,7 +1074,7 @@
     <div class="faq-list">
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Is this legit, or some kind of scam?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
-        <div class="faq-a-wrap"><div class="faq-a">Fair question to ask before handing over any details. The Preview Class is free with zero obligation — come, ask us anything in person, meet the team, and decide afterward whether Basic or Advanced is worth it. You open your own broker account directly with AIMS FX; we never touch or hold your money.</div></div>
+        <div class="faq-a-wrap"><div class="faq-a">Fair question to ask before handing over any details. The Preview Class is free with zero obligation — come, ask us anything in person, meet the team, and decide afterward whether Basic or Advanced is worth it. You open your own broker account, in your own name, with a broker of your choice; we never touch or hold your money.</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Can I actually lose money trading?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
@@ -1086,7 +1086,7 @@
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">Where does my USD1,000 top-up actually go?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
-        <div class="faq-a-wrap"><div class="faq-a">Straight into a trading account opened in your own name with AIMS FX — it's your capital, sitting in your account, not a payment to Teh Tarik Traders. The only fee you pay us is the course fee (RM499 or RM3,999 depending on tier).</div></div>
+        <div class="faq-a-wrap"><div class="faq-a">Straight into a trading account opened in your own name, with a broker of your choice — it's your capital, sitting in your account, not a payment to Teh Tarik Traders. The only fee you pay us is the course fee (RM499 or RM3,999 depending on tier).</div></div>
       </div>
       <div class="faq-item">
         <button class="faq-q" onclick="toggleFaq(this)">What happens right after I submit my details?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg></button>
@@ -1265,6 +1265,29 @@
     d.className = 'log-day' + (i < 22 ? ' active' : '');
     logdays.appendChild(d);
   }
+
+  // ===== Log book video: muted autoplay on scroll into view =====
+  (function(){
+    const iframe = document.getElementById('logVideoIframe');
+    const frameEl = document.getElementById('logVideoFrame');
+    if(!iframe || !frameEl) return;
+
+    function sendCommand(func){
+      iframe.contentWindow.postMessage(JSON.stringify({event:'command', func:func, args:[]}), 'https://www.youtube.com');
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          sendCommand('playVideo');
+        } else {
+          sendCommand('pauseVideo');
+        }
+      });
+    }, { threshold: 0.5 }); // fires once at least half the video is visible
+
+    observer.observe(frameEl);
+  })();
 
   // ===== Mobile nav toggle =====
   function toggleNav(){
